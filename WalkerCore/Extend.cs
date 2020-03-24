@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using Newtonsoft.Json.Linq;
+
 
 namespace WalkerCore
 {
@@ -9,7 +13,29 @@ namespace WalkerCore
     /// </summary>
     public static class Extend
     {
-
+        /// <summary>
+        /// object 转 JSON 字符串
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="DateTimeFormat">时间格式化</param>
+        /// <returns></returns>
+        public static string ToJson(this object obj, string DateTimeFormat = "yyyy-MM-dd HH:mm:ss")
+        {
+            Newtonsoft.Json.Converters.IsoDateTimeConverter dtFmt = new Newtonsoft.Json.Converters.IsoDateTimeConverter
+            {
+                DateTimeFormat = DateTimeFormat
+            };
+            return JsonConvert.SerializeObject(obj, dtFmt);
+        }
+        /// <summary>
+        /// 解析 JSON字符串 为JObject对象
+        /// </summary>
+        /// <param name="json">JSON字符串</param>
+        /// <returns>JObject对象</returns>
+        public static JObject ToJObject(this string json)
+        {
+            return JObject.Parse(json);
+        }
         /// <summary>
         /// 将Datetime转换成时间戳，10位：秒 或 13位：毫秒
         /// </summary>
