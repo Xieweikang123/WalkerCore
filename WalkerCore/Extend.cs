@@ -36,6 +36,18 @@ namespace WalkerCore
         {
             return JObject.Parse(json);
         }
+
+        /// <summary>
+        /// JSON字符串 转 实体
+        /// </summary>
+        /// <typeparam name="T">实体泛型</typeparam>
+        /// <param name="json">JSON字符串</param>
+        public static T ToEntity<T>(this string json)
+        {
+            var mo = JsonConvert.DeserializeObject<T>(json);
+            return mo;
+        }
+
         /// <summary>
         /// 将Datetime转换成时间戳，10位：秒 或 13位：毫秒
         /// </summary>
