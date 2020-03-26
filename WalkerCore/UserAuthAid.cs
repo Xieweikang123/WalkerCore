@@ -7,7 +7,7 @@ using WebCore.Data;
 
 namespace WalkerCore
 {
-    public class UserAuthWK
+    public class UserAuthAid
     {
         private readonly HttpContext context;
 
@@ -15,7 +15,7 @@ namespace WalkerCore
         /// 构造，拿到当前上下文
         /// </summary>
         /// <param name="httpContext"></param>
-        public UserAuthWK(HttpContext httpContext)
+        public UserAuthAid(HttpContext httpContext)
         {
             context = httpContext;
         }
@@ -33,7 +33,8 @@ namespace WalkerCore
                 return new CoreUser
                 {
                     UserId = Convert.ToInt32(user.FindFirst(ClaimTypes.PrimarySid)?.Value),
-                    UserEmail = user.FindFirst(ClaimTypes.Name)?.Value,
+                    UserName = user.FindFirst(ClaimTypes.Name)?.Value,
+                    UserEmail = user.FindFirst(ClaimTypes.Email)?.Value,
                     UserSign = user.FindFirst(ClaimTypes.Sid)?.Value,
                 };
             }
@@ -48,6 +49,7 @@ namespace WalkerCore
                 return mo;
             }
         }
+
 
         /// <summary>
         /// 生成Token
