@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DotNetTest\Data\Data.csproj" />
+    <ProjectReference Include="..\..\DotNetTest\Data\Walker.Data.csproj" />
   </ItemGroup>
 
 </Project>

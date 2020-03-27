@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using WebCore.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Walker.Data.Models;
 namespace WalkerCore
 {
     public class UserAuthAid
