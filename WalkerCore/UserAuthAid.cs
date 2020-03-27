@@ -35,6 +35,7 @@ namespace WalkerCore
                     UserId = Convert.ToInt32(user.FindFirst(ClaimTypes.PrimarySid)?.Value),
                     UserName = user.FindFirst(ClaimTypes.Name)?.Value,
                     UserEmail = user.FindFirst(ClaimTypes.Email)?.Value,
+                    UserPhoto = user.FindFirst(ClaimTypes.UserData)?.Value,
                     UserSign = user.FindFirst(ClaimTypes.Sid)?.Value,
                 };
             }
@@ -75,6 +76,11 @@ namespace WalkerCore
                 //记住我
                 authProperties.IsPersistent = true;
                 authProperties.ExpiresUtc = DateTimeOffset.Now.AddDays(10);
+            }
+            else
+            {
+                authProperties.IsPersistent = true;
+                authProperties.ExpiresUtc = DateTimeOffset.Now.AddMinutes(30);
             }
             //写入授权
             context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, cp, authProperties).Wait();
