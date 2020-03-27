@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Text;
 using WebCore.Data;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 namespace WalkerCore
 {
     public class UserAuthAid
@@ -48,6 +48,36 @@ namespace WalkerCore
                 }
                 return mo;
             }
+        }
+        /// <summary>
+        /// 写入授权
+        /// </summary>
+        /// <param name="context">当前上下文</param>
+        /// <param name="user">用户信息</param>
+        /// <param name="isremember">是否记住账号</param>
+        public static void SetAuth(HttpContext context, CoreUser user, bool isremember = false)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.PrimarySid, user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName??""),
+                new Claim(ClaimTypes.Email, user.UserEmail),
+                //new Claim(ClaimTypes.GivenName, user.Nickname ?? ""),
+                new Claim(ClaimTypes.Sid, user.UserSign),
+                new Claim(ClaimTypes.UserData, user.UserPhoto ?? ""),
+            };
+
+            var cp = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
+
+            var authProperties = new AuthenticationProperties();
+            if (isremember)
+            {
+                //记住我
+                authProperties.IsPersistent = true;
+                authProperties.ExpiresUtc = DateTimeOffset.Now.AddDays(10);
+            }
+            //写入授权
+            context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, cp, authProperties).Wait();
         }
 
 
