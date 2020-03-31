@@ -58,7 +58,7 @@ namespace WalkerCore
         /// <summary>
         /// 设置快捷标签，赋值code、msg
         /// </summary>
-        /// <param name="isyes"></param>
+        /// <param name="isyes">是否成功</param>
         public void Set(bool isyes)
         {
             if (isyes)
@@ -67,6 +67,25 @@ namespace WalkerCore
             }
             else
             {
+                Set(ARTag.fail);
+            }
+        }
+        /// <summary>
+        /// 设置快捷标签，赋值code、msg
+        /// </summary>
+        /// <param name="isyes">是否成功</param>
+        /// <param name="successMsg">成功消息</param>
+        /// <param name="failMsg">失败消息</param>
+        public void Set(bool isyes,string successMsg,string failMsg)
+        {
+            if (isyes)
+            {
+                Set(ARTag.success);
+                msg = successMsg;
+            }
+            else
+            {
+                msg = failMsg;
                 Set(ARTag.fail);
             }
         }
