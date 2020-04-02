@@ -19,6 +19,10 @@ namespace WalkerCore
         {
             //总条数
             ovm.total = query.Count();
+            if (ovm.total <= 0)
+            {
+                return;
+            }
 
             //排序
             if (!string.IsNullOrWhiteSpace(ivm.sort))
