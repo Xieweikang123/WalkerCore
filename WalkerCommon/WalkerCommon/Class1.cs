@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WalkerCommon
 {
-    public class Class1
+    class Class1
     {
     }
 }
