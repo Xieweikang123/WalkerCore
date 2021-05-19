@@ -6,6 +6,7 @@ namespace WalkerCore
 {
     public class ActionResultVM
     {
+
         /// <summary>
         /// 错误码，200 表示成功，-1 表示异常，其它自定义建议从 1 开始累加
         /// </summary>
@@ -76,7 +77,7 @@ namespace WalkerCore
         /// <param name="isyes">是否成功</param>
         /// <param name="successMsg">成功消息</param>
         /// <param name="failMsg">失败消息</param>
-        public void Set(bool isyes,string successMsg,string failMsg)
+        public void Set(bool isyes,string successMsg,string failMsg="")
         {
             if (isyes)
             {

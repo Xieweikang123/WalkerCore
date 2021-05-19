@@ -13,7 +13,7 @@ namespace WalkerCore
         /// <summary>
         /// 缓存
         /// </summary>
-        public static IMemoryCache memoryCache;
+        public static IMemoryCache memoryCache=new MemoryCache(new MemoryCacheOptions());
 
         /// <summary>
         /// 获取数据缓存
@@ -33,10 +33,13 @@ namespace WalkerCore
         /// <param name="objObject">值</param>
         /// <param name="Second">过期时间，默认7200秒 </param>
         /// <param name="Sliding">是否相对过期，默认是；否，则固定时间过期</param>
-        public static void Set(string CacheKey, object objObject, int Second = 7200, bool Sliding = true) =>
+        public static void Set(string CacheKey, object objObject, int Second = 7200, bool Sliding = true)
+        {
+
             memoryCache.Set(CacheKey, objObject, Sliding ?
                 new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(Second)) :
                 new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(Second)));
+        }
 
         /// <summary>
         /// 移除指定数据缓存
