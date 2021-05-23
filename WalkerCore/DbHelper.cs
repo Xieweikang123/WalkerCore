@@ -11,6 +11,25 @@ namespace WalkerCore
 
         public string connStr { get; set; }
 
+
+        public object ExecuteScalar(string sql, SqlParameter[] sqlParameters = null)
+        {
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    if (sqlParameters != null)
+                    {
+                        cmd.Parameters.AddRange(sqlParameters);
+                    }
+                    var obj = cmd.ExecuteScalar();
+
+                    return obj;
+                }
+            }
+        }
         /// <summary>
         /// 获取datatable
         /// </summary>
